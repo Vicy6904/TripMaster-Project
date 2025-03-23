@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h1>Travel Packages</h1>
+
+    <div class="tabs">
+    <div class="sliding-bar"></div> <!-- Sliding bar -->
+    <button class="tab-button active" data-tab="predefined">Predefined Packages</button>
+    <button class="tab-button" data-tab="custom">Custom Packages</button>
+</div>
+
+
+<div id="predefined" class="tab-content active">
+    <div class="filters">
+        <input type="text" id="search" placeholder="Search packages...">
+        <select id="sort">
+            <option value="price">Price: Low to High</option>
+            <option value="duration">Duration: Short to Long</option>
+        </select>
+        <select id="filter">
+            <option value="All">All Types</option>
+            <option value="Relaxation">Relaxation</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Cultural">Cultural</option>
+        </select>
+    </div>
+
+    <div id="package-grid" class="package-grid">
+        {% for package in packages %}
+        <div class="package-card">
+            <div class="package-card-content">
+                <h3>{{ package['name'] }}</h3>
+                <p>{{ package['type'] }}</p>
+                <img src="{{ url_for('get_package_image', package_id=package['id']) }}" alt="{{ package['name'] }}">
+                <div class="package-info">
+                    <i class="icon-map-pin"></i>
+                    <span>{{ package['description'] }}</span>
+                </div>
+                <div class="package-info">
+                    <i class="icon-clock"></i>
+                    <span>{{ package['duration'] }} days</span>
+                </div>
+            </div>
+            <div class="package-footer">
+                <span class="price">$ {{ package['price'] }}</span>
+                <a href="{{ url_for('booking') }}"><button>Book Now</button></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="custom" class="tab-content">
+    <div class="custom-form">
+        <h2>Create Your Custom Package</h2>
+        <p>Design your perfect trip by selecting your preferences below:</p>
+        <form id="custom-package-form" action="{{ url_for('add_custom_package') }}" method="post">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name" name="name">
+            </div>
+            <div>
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" placeholder="Where do you want to go?" name="destination">
+            </div>
+            <div>
+                <label for="duration">Duration</label>
+                <input type="number" id="duration" placeholder="Number of days" min="1" name="duration">
+            </div>
+            <div>
+                <label for="budget">Budget</label>
+                <input type="number" id="budget" placeholder="Your budget in $" min="0" name="budget">
+            </div>
+            <div>
+                <label for="activities">Preferred Activities</label>
+                <select id="activities" name="activity">
+                    <option value="">Select activities</option>
+                    <option value="beach">Beach & Relaxation</option>
+                    <option value="adventure">Adventure & Sports</option>
+                    <option value="culture">Cultural & Historical</option>
+                    <option value="nature">Nature & Wildlife</option>
+                </select>
+            </div>
+            <input type="submit" id="subbtn" value="Create Custom Package">
+        </form>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

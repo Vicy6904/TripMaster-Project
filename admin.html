@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
+    <title>Trip Master Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-panel">
+        <nav class="sidebar">
+            <h1><i class="fas fa-map-marked-alt"></i> Trip Master</h1>
+            <ul>
+                <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#packages"><i class="fas fa-box"></i> Manage Packages</a></li>
+                <li><a href="#buses"><i class="fas fa-bus"></i> Manage Buses</a></li>
+                <li><a href="#routes"><i class="fas fa-route"></i> Manage Routes</a></li>
+                <li><a href="#custom-packages"><i class="fas fa-file-signature"></i> Custom Packages</a></li>
+                <li><a href="#booking"><i class="fas fa-star"></i> Booking</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <section id="dashboard" class="page active">
+                <h2>Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-item">
+                        <i class="fas fa-box icon"></i>
+                        <h3>Total Packages</h3>
+                        <p class="count">{{ package_count }}</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <i class="fas fa-bus icon"></i>
+                        <h3>Total Buses</h3>
+                        <p class="count">{{ buses_count }}</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <i class="fas fa-route icon"></i>
+                        <h3>Total Routes</h3>
+                        <p class="count">{{ routes_count }}</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <i class="fas fa-calendar-check icon"></i> 
+                        <h3>Total Bookings</h3>
+                        <p class="count">{{ booking_count }}</p>
+                    </div>
+                    <div class="dashboard-item">
+                        <i class="fas fa-box-open icon"></i> 
+                        <h3>Total Custom Packages</h3>
+                        <p class="count">{{ custome_count }}</p>
+                    </div>
+                </div>
+            </section>
+            
+
+            <!-- Packages Section -->
+            <section id="packages" class="page">
+                <h2>Manage Packages</h2>
+                <button class="show-form-btn" data-target="package-form">Add New Package</button>
+                
+                <form id="package-form" class="animated-form hidden" action="/add_package" method="POST" enctype="multipart/form-data">
+                    <input type="text" placeholder="Package Name" name="name" required>
+                    <input type="text" placeholder="Description" name="description" required>
+                    <input type="number" placeholder="Price" name="price" required min="0">
+                    <input type="number" placeholder="Duration (days)" name="duration" required min="1">
+                    <input type="text" placeholder="Type (Adventure, Relaxation, etc.)" name="type" required>
+                
+                    <!-- Image Upload Field with File Validation -->
+                    <input type="file" name="image" accept="image/*" required onchange="validateImage(this)">
+                    
+                    <button type="submit">Add Package</button>
+                
+                    <!-- Placeholder for error/success messages -->
+                    <div id="form-feedback" style="color: red; margin-top: 10px;"></div>
+                </form>
+                <div class="mp-table-container">
+                    <table id="mp-package-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Duration</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mp-package-list">
+                            {% for package in packages %}
+                            <tr>
+                                <td>{{package['id']}}</td>
+                                <td>{{package['name']}}</td>
+                                <td>{{package['description']}}</td>
+                                <td>${{package['price']}}</td>
+                                <td>{{package['duration']}} Days</td>
+                                <td>{{package['type']}}</td>
+                                <td>
+                                    <a href="{{ url_for('delete_package', id=package['id']) }}" class="mp-delete-btn">Delete</a >
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Buses Section -->
+            <section id="buses" class="page">
+                <h2>Manage Buses</h2>
+                <button class="show-form-btn" data-target="bus-form">Add New Bus</button>
+                <form id="bus-form" class="animated-form hidden" action="{{ url_for('add_bus') }}" method="post">
+                    <input type="text" placeholder="Bus Number" name="reg_number" required>
+                    <input type="text" placeholder="Driver Name" name="driver_name" required>
+                    <button type="submit">Add Bus</button>
+                </form>
+                <div class="mp-table-container">
+                    <table id="mp-buses-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Registration Number</th>
+                                <th>Driver Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for info in buses %}
+                            <tr>
+                                <td>{{info['id']}}</td>
+                                <td>{{info['reg_number']}}</td>
+                                <td>{{info['driver']}}</td>
+                                <td>
+                                    <a href="{{ url_for('delete_bus', id=info['id']) }}" class="mp-delete-btn">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Routes Section -->
+            <section id="routes" class="page">
+                <h2>Manage Routes</h2>
+                <button class="show-form-btn" data-target="route-form">Add New Route</button>
+                <form id="route-form" class="animated-form hidden" action="{{ url_for('add_route') }}" method="post""">
+                    <input type="text" placeholder="Start Location" name="departure" required>
+                    <input type="text" placeholder="End Location" name="destination" required>
+                
+                    <select name="ass_buses" required>
+                        <option value="" disabled selected>Select a Bus</option>
+                        {% for info in buses %}
+                        <option value="{{ info['reg_number'] }}">{{ info['reg_number'] }}</option>
+                        {% endfor %}
+                    </select>
+                
+                    <button type="submit">Add Route</button>
+                </form>
+                
+                <div class="mp-table-container">
+                    <table id="mp-routes-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Departure</th>
+                                <th>Destination</th>
+                                <th>Assigned Buses</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for route in routes %}
+                            <tr>
+                                <td>{{ route.id }}</td>
+                                <td>{{ route.departure }}</td>
+                                <td>{{ route.destination }}</td>
+                                <td>{{ route.ass_buses }}</td>
+                                <td>
+                                    <a href="{{ url_for('delete_routes', id=route.id) }}" class="mp-delete-btn">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+
+            <!-- Custom Package Section -->
+            <section id="custom-packages" class="page">
+                <h2>Custom Package Requests</h2>
+                <div class="table-container">
+                    <table id="custom-package-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Destination</th>
+                                <th>Duration (days)</th>
+                                <th>Budget</th>
+                                <th>Activity</th>
+                                <th>Status</th>
+                                <th>Confirmation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for info in customes %}
+                            <tr>
+                                <td>{{ info.id }}</td>
+                                <td>{{ info.destination }}</td>
+                                <td>{{ info.duration }}</td>
+                                <td>${{ info.budget }}</td>
+                                <td>{{ info.activity }}</td>
+                                <td>{{ info.status }}</td>
+                                <td>
+                                    <form action="{{ url_for('acccept_custom_package') }}" method="post">
+                                        <input type="hidden" name="custom_id" value="{{info.id}}">
+                                        <button class="accept-btn" onclick="handleAction('accept', this)">Accept</button>
+                                        <button class="cancel-btn" onclick="handleAction('cancel', this)">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            
+            <!-- Booking Section -->
+            <section id="booking" class="page">
+                <h2>Manage Bookings</h2>
+                <div class="table-container">
+                    <table id="mp-booking-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Number</th>
+                                <th>Package Name</th>
+                                <th>Booking Date</th>
+                                <th>Number Of People</th>
+                                <th>Status</th>
+                                <th>Confirmation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in bookings %}
+                            <tr>
+                                <td>{{booking.id}}</td>
+                                <td>{{booking.name}}</td>
+                                <td>{{booking.email}}</td>
+                                <td>{{booking.number}}</td>
+                                <td>{{booking.package_name}}</td>
+                                <td>{{booking.start_date}}</td>
+                                <td>{{booking.number_of_people}}</td>
+                                <td>{{booking.status}}</td>
+                                <td>
+                                    <form action="{{ url_for('confirm_booking', id=booking.id) }}" method="post"><button class="mp-edit-btn" type="submit">Confirm</button></form>
+                                    <button class="mp-delete-btn">Delete</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+</body>
+</html>

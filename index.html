@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Your Journey Starts Here</h1>
+                <p>Plan Your Trip or Manage Your Travel Business Effortlessly!</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('packages') }}"><button class="btn btn-primary">Explore Packages</button></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="explore-packages" class="explore-packages">
+            <div class="container">
+                <h2>Explore our best Packages</h2>
+                <div class="package-grid">
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/beach.webp') }}" alt="Package 1" class="card-image">
+                        <div class="package-content">
+                            <h3>Adventure Tour</h3>
+                            <p class="package-description">Explore the mountains with an exciting 7-day adventure tour.</p>
+                            <a href="{{ url_for('packages') }}"><button class="btn btn-primary">Book Now</button></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/mountain.webp') }}" alt="Package 2" class="card-image">
+                        <div class="package-content">
+                            <h3>Beach Vacation</h3>
+                            <p class="package-description">Relax and unwind on a 5-day tropical beach getaway.</p>
+                            <a href="{{ url_for('packages') }}"><button class="btn btn-primary">Book Now</button></a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="{{ url_for('static', filename='img/city.webp') }}" alt="Package 3" class="card-image">
+                        <div class="package-content">
+                            <h3>City Explorer</h3>
+                            <p class="package-description">Discover the best cities with a custom 4-day trip package.</p>
+                            <a href="{{ url_for('packages') }}"><button class="btn btn-primary">Book Now</button></a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline">View All Packages</button>
+            </div>
+        </section>
+
+        
+
+        <section id="travel-management" class="travel-management">
+            <div class="container">
+                <h2>Travel Management</h2>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <div class="card-content">
+                            <h3>Manage Buses</h3>
+                            <p>Efficiently manage your fleet and routes</p>
+                            <a href="{{ url_for('login') }}"><button class="btn btn-primary">Manage</button></a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="card-content">
+                            <h3>Staff Records</h3>
+                            <p>Maintain comprehensive staff information</p>
+                            <a href="{{ url_for('login') }}"><button class="btn btn-primary">View Records</button></a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="card-content">
+                            <h3>Schedules</h3>
+                            <p>Organize and optimize travel schedules</p>
+                            <a href="{{ url_for('login') }}"><button class="btn btn-primary">View Schedules</button></a>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <div class="card-content">
+                            <h3>Generate Reports</h3>
+                            <p>Access detailed analytics and insights</p>
+                            <a href="{{ url_for('login') }}"><button class="btn btn-primary">Generate</button></a>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ url_for('login') }}"><button class="btn btn-primary">Access Management Tools</button></a>
+            </div>
+        </section>
+        
+
+        <section id="why-choose" class="why-choose">
+            <div class="container">
+                <h2>Why Choose TripMaster</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Simplified Trip Planning</h3>
+                        <p>Easy-to-use tools for creating your perfect journey</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Efficient Travel Management</h3>
+                        <p>Streamlined solutions for travel operators</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock assistance for all your travel needs</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Secure and Reliable</h3>
+                        <p>Your safety and data security are our top priorities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2>What Our Users Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>"TripMaster made planning my vacation so much easier! The features were user-friendly, and I found everything I needed in one place. Highly recommended!"</p>
+                        <h3>John Doe</h3>
+                        <p>Traveler</p>
+                        <div class="rating">
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9734;</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"I’ve been using TripMaster for managing our travel agency’s bookings, and it's been a game-changer. The platform is reliable and incredibly easy to navigate. A must-have tool for any travel operator!"</p>
+                        <h3>Sarah Smith</h3>
+                        <p>Travel Agency Owner</p>
+                        <div class="rating">
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"I love the custom trip package feature. It allowed me to plan a personalized journey for my clients with ease. The map integration is excellent too!"</p>
+                        <h3>Emily Williams</h3>
+                        <p>Tour Guide</p>
+                        <div class="rating">
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9734;</span>
+                            <span class="star">&#9734;</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"The customer support team is fantastic. They helped me resolve an issue in no time and made sure I was happy with the service. I will definitely continue using TripMaster!"</p>
+                        <h3>Michael Brown</h3>
+                        <p>Frequent Traveler</p>
+                        <div class="rating">
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9733;</span>
+                            <span class="star">&#9734;</span>
+                            <span class="star">&#9734;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about-us" class="about-us">
+            <div class="container">
+                <h2>About Us</h2>
+                <div class="about-card">
+                    <div class="card-content">
+                        <h3>Who We Are</h3>
+                        <p>At TripMaster, we are committed to revolutionizing the way travel is managed and planned. We are a team of travel enthusiasts, tech experts, and industry professionals dedicated to making every trip a seamless and enjoyable experience. Whether you're planning a family vacation or managing a travel agency, we are here to make the process efficient, reliable, and personalized.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+{% endblock %}

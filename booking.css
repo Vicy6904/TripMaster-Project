@@ -1,0 +1,181 @@
+/* General Styling */
+body {
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Root Variables */
+:root {
+    --card-width: 1000px; /* Change this value to adjust the card width */
+}
+
+/* Toggle Buttons */
+.toggle-buttons {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons button {
+    background: #fff;
+    color: #000;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    margin: 5px;
+}
+
+.toggle-buttons button:hover {
+    background: #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Booking & History Container */
+.booking-container, .history-container {
+    width: var(--card-width); /* Adjustable width */
+    margin: 50px auto;
+    padding: 35px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Section Headings */
+.booking-container h2, .history-container h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #ccc;
+    font-weight: bold;
+}
+
+/* Input Fields */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #333;
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-group input::placeholder {
+    color: #888;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Submit Button */
+button {
+    width: auto;
+    padding: 14px;
+    font-size: 16px;
+    background: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #ddd;
+    color: #000;
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Booking History Table */
+.history-container {
+    padding: 30px;
+}
+
+.history-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.history-container table th,
+.history-container table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #555;
+    color: #fff;
+    font-size: 15px;
+}
+
+.history-container table th {
+    background: #333;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.history-container table tbody tr {
+    background: #111;
+    transition: background 0.3s ease-in-out;
+}
+
+.history-container table tbody tr:hover {
+    background: #444;
+}
+
+/* Make sure table does not overflow */
+.history-container table {
+    display: table;
+    max-width: 100%;
+}
+
+.history-container table th,
+.history-container table td {
+    white-space: nowrap;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

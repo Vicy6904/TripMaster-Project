@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripMaster - Login/Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login-signup.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-box">
+                <div class="form-side login-side">
+                    <h2>Welcome Back</h2>
+                    <form id="login-form" action="{{ url_for('login') }}", method="post">
+                        <div class="input-group">
+                            <i data-lucide="mail"></i>
+                            <input type="text" placeholder="Username" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <i data-lucide="lock"></i>
+                            <input type="password" placeholder="Password" name="password" required>
+                        </div>
+                        <button type="submit">Log In</button>
+                    </form>
+                    <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+                </div>
+                <div class="form-side signup-side">
+                    <h2>Create Account</h2>
+                    <form id="signup-form" action="{{ url_for('signup') }}" method="post">
+                        <div class="input-group">
+                            <i data-lucide="user"></i>
+                            <input type="text" placeholder="Full Name" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <i data-lucide="mail"></i>
+                            <input type="email" placeholder="Email" name="email" required>
+                        </div>
+                        <div class="input-group">
+                            <i data-lucide="lock"></i>
+                            <input type="password" placeholder="Password" name="password" required>
+                        </div>
+                        <div class="input-group">
+                            <i data-lucide="lock"></i>
+                            <input type="password" placeholder="Confirm Password" name="confirm_password" required>
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <p>Already have an account? <a href="#" id="show-login">Log In</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='img/login.jpg') }}" alt="Travel destination" class="background-image">
+            <div class="overlay">
+                <h1>TripMaster</h1>
+                <p>Your journey begins here</p>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/login-signup.js') }}"></script>
+</body>
+</html>
+
